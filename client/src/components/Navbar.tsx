@@ -9,7 +9,9 @@ const Navbar = () => {
           <button className="navButton ml-[20px] py-[5px] px-[10px] text-[--theme] bg-[white] rounded-sm">
             Login
           </button>
-          <Button classes="[red]" action={(x: string)=>alert('Hello ' + x)}/>
+          <Button classes="" action={() => alert("Hello ")}>
+            Login
+          </Button>
           <button className="navButton ml-[20px] ">Register</button>
         </div>
       </div>
@@ -17,9 +19,9 @@ const Navbar = () => {
   );
 };
 
-function test (x: string | undefined)  {
+function test(x: string | undefined) {
   let y;
   y = 12;
-  alert("Hello " +x);
+  alert("Hello " + x);
 }
 export default Navbar;

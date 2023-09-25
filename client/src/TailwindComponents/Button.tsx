@@ -1,21 +1,20 @@
 // import classnames from 'classnames';
-import React, { FC } from "react";
+type ButtonInterface = {
+  classes: string;
+  children: React.ReactNode;
+  action: () => void;
+};
 
-interface ButtonInterface{
-  classes : string,
-  action: (x: string)=> void;
-  }
-
-const Button: FC<ButtonInterface> = (props): JSX.Element => {
+const Button = (props: ButtonInterface): JSX.Element => {
   return (
     <button
-      className={`navButton ml-[20px] py-[5px] px-[10px] text-${props.classes} bg-[white] rounded-sm text-${props.classes}`}
-      onClick={()=> props.action("Ferid")}
+      className={`ml-[20px] py-[5px] px-[10px] ${props.classes} bg-[white] rounded-sm text-${props.classes}`}
+      onClick={props.action}
+      {...props}
     >
-      Login
+      {props.children}
     </button>
   );
 };
-
 
 export default Button;
