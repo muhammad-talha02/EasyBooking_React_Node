@@ -1,11 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { HeaderIcons } from "../utils/HeaderIcons";
 import { Button } from "../TailwindComponents";
+import { SearchBar } from "../components";
 const Header = () => {
   // const test = faBed
 
   return (
-    <div className="header flex justify-center text-white bg-[--theme]">
+    <div className="header flex justify-center text-white bg-[--theme] relative">
       <div className="headerContainer w-[100%] max-w-[1024px] mt-[20px] mx-[0px] mb-[100px]">
         <div className="headerList  flex gap-[40px] mb-8">
           {HeaderIcons?.map((item) => {
@@ -32,9 +33,7 @@ const Header = () => {
         <Button classes="p-[10px] bg-[#0071c2] text-[white] border-0 font-medium">
           Login / Register
         </Button>
-        <div className="headerSearch">
-          
-        </div>
+        <SearchBar/>
       </div>
     </div>
   );
