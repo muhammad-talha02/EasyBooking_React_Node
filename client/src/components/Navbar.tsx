@@ -6,13 +6,12 @@ const Navbar = () => {
       <div className="navContainer w-[100%] max-w-[1024px] flex justify-between items-center text-[white]">
         <span className="logo font-bold">EasyBooking</span>
         <div className="navItems">
-          <Button>
+          <Button classes="bg-white text-[--theme]">
             Login
           </Button>
-          <Button classes="ml-[20px]">
-            Login
+          <Button classes="bg-white text-[--theme] ml-[20px]">
+            Register
           </Button>
-          <button className="navButton ml-[20px] ">Register</button>
         </div>
       </div>
     </div>
