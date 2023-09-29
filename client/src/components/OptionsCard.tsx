@@ -1,6 +1,7 @@
 type OptionCardProps = {
   title: string;
   stateValue: number;
+  min: number;
   increment: (name?: string, operation?: string) => void;
   decrement: (name?: string, operation?: string) => void;
 };
@@ -10,6 +11,7 @@ const OptionsCard = ({
   stateValue,
   increment,
   decrement,
+  min,
 }: OptionCardProps) => {
   return (
     <>
@@ -18,14 +20,15 @@ const OptionsCard = ({
         <div className="flex items-center gap-[10px]">
           <button
             className="bg-[--theme] text-white w-[33px] text-xl font-bold py-1"
-            onClick={()=>increment()}
+            onClick={() => increment()}
           >
             +
           </button>
           <span className="text-black">{stateValue}</span>
           <button
-            className="bg-[--theme] text-white w-[33px] text-xl font-bold py-1"
-            onClick={()=>decrement()}
+            disabled={stateValue <= min}
+            className="bg-[--theme] text-white w-[33px] text-xl font-bold py-1 disabled:cursor-not-allowed"
+            onClick={() => decrement()}
           >
             -
           </button>
