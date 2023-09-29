@@ -1,10 +1,11 @@
 import { Navbar } from  "../components"
+import Header from "../sections/Header"
 
 const Home = () => {
   return (
-    <div className="text-3xl font-bold underline text-red-600">
+    <div className="">
       <Navbar/>
-      Home
+      <Header/>
     </div>
   )
 }
