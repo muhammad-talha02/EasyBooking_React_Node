@@ -2,7 +2,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { HeaderIcons } from "../utils/HeaderIcons";
 import { Button } from "../TailwindComponents";
 import { SearchBar } from "../components";
-const Header = () => {
+
+
+type HeaderProps = {
+  type?:string
+}
+const Header = ({type}:HeaderProps) => {
   // const test = faBed
 
   return (
@@ -21,7 +26,8 @@ const Header = () => {
             );
           })}
         </div>
-        <h1 className="headerTitle text-3xl font-bold">
+        {type !== "list" && <>
+          <h1 className="headerTitle text-3xl font-bold">
           Discount for lifetime. It Genious!
         </h1>
         <p className="headerDesc my-[20px]">
@@ -33,7 +39,9 @@ const Header = () => {
         <Button classes="p-[10px] bg-[#0071c2] text-[white] border-0 font-medium">
           Login / Register
         </Button>
+        </>}
         <SearchBar/>
+
       </div>
     </div>
   );

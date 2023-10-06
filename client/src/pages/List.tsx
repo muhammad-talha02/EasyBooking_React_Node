@@ -1,10 +1,12 @@
-import React from 'react'
+import { Navbar } from '../components'
+import Header from '../sections/Header'
 
 const Home = () => {
   return (
-    <div>
-      List
-    </div>
+    <>
+      <Navbar/>
+      <Header type="list"/>
+    </>
   )
 }
 
