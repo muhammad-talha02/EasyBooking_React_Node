@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <>
       <Navbar/>
-      <Header type="list"/>
+      <Header mode="list"/>
     </>
   )
 }
