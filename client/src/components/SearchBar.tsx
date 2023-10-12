@@ -37,7 +37,7 @@ const SearchBar = () => {
 
   useEffect(() => {
     // Add a click event listener to the document
-    const handleOutsideClick = (e) => {
+    const handleOutsideClick = (e:any) => {
       if (!dateRef.current.contains(e.target)) {
         setDatePicker(false);
       }
