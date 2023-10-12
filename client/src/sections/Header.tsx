@@ -16,7 +16,7 @@ const Header = ({ mode }: HeaderProps) => {
           mode === "list" ? "" : "mb-[100px]"
         }`}
       >
-        <div className="headerList  flex gap-[40px] mb-8">
+        <div className="headerList flex gap-[40px] mb-8">
           {HeaderIcons?.map((item) => {
             return (
               <div
