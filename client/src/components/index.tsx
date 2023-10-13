@@ -5,3 +5,5 @@ export { default as FeaturedList } from "./FeaturedList";
 export { default as FeatureItem } from "./FeatureItem";
 export { default as PropertyTypesList } from "./PropertyTypesList";
 export { default as ProperttyTypeItem } from "./ProperttyTypeItem";
+export { default as FeaturedProperties } from "./FeaturedProperties";
+export { default as PropertyCard } from "./PropertyCard";

@@ -1,4 +1,4 @@
-import { H2, H3, H4, H5 } from "../TailwindComponents/Typorgraphy/Headings";
+import { H3, H5 } from "../TailwindComponents/Typorgraphy/Headings";
 
 const ProperttyTypeItem = () => {
   return (
