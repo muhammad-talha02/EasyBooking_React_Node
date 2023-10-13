@@ -89,7 +89,7 @@ const SearchBar = () => {
             onChange={(item) => setDateRange([item.selection])}
             moveRangeOnFirstSelection={false}
             ranges={dateRange}
-            className="absolute top-[45px]"
+            className="absolute top-[45px] z-[2]"
           />
         )}
       </div>
@@ -104,7 +104,7 @@ const SearchBar = () => {
           {`${options.adult} Adults . ${options.children} Children . ${options.room} room`}
         </span>
         {optionBox && (
-          <div className="options absolute top-[45px] bg-white text-[gray] rounded-md shadow-xl border-[1px]">
+          <div className="options absolute z-[2] top-[45px] bg-white text-[gray] rounded-md shadow-xl border-[1px]">
             <OptionsCard
               title="Adult"
               stateValue={options.adult}

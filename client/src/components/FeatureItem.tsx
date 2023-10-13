@@ -1,12 +1,12 @@
-import { H1, H2 } from "../TailwindComponents/Typorgraphy/Headings"
+import { H1, H2, H3 } from "../TailwindComponents/Typorgraphy/Headings"
 
 const FeatureItem = () => {
   return (
-    <div className="featuredItem">
-    <img src="https://loremflickr.com/cache/resized/65535_52462898608_924dc41d06_n_320_240_nofilter.jpg" alt="" />
-    <div className="featureTitles">
-      <H1>Emaar</H1>
-      <H2>123 Properties</H2>
+    <div className="featuredItem relative text-white h-[250px] overflow-hidden rounded-lg z-[1]">
+    <img className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="" />
+    <div className="featureTitles absolute bottom-1 left-2">
+      <H2>Emaar</H2>
+      <H3>123 Properties</H3>
     </div>
   </div>
   )
