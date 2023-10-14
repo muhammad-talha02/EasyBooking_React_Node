@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { HeaderIcons } from "../utils/HeaderIcons";
+import { HeaderIcons } from "../utils";
 import { Button } from "../TailwindComponents";
 import { SearchBar } from "../components";
 
