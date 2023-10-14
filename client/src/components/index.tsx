@@ -7,3 +7,5 @@ export { default as PropertyTypesList } from "./PropertyTypesList";
 export { default as ProperttyTypeItem } from "./ProperttyTypeItem";
 export { default as FeaturedProperties } from "./FeaturedProperties";
 export { default as PropertyCard } from "./PropertyCard";
+export { default as MailList } from "./MailList";
+export { default as FooterListItems } from "./FooterListItems";
