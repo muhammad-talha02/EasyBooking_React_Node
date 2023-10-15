@@ -27,3 +27,11 @@ export const HeaderIcons = [
     icon: faTaxi,
   },
 ];
+
+export const FooterItems = [
+  ["Countries", "Cities", "Regions", "Airports", "Hotels"],
+  ["Countries", "Cities", "Regions", "Airports", "Hotels"],
+  ["Countries", "Cities", "Regions", "Airports", "Hotels"],
+  ["Countries", "Cities", "Regions", "Airports", "Hotels"],
+  ["Countries", "Cities", "Regions", "Airports", "Hotels"],
+];
