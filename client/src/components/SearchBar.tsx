@@ -20,6 +20,7 @@ type OptionsState = {
 
 const SearchBar = () => {
   const dateRef = useRef<any | null>();
+  const optionRef = useRef<any | null>();
   const [dateRange, setDateRange] = useState<any>([
     {
       startDate: new Date(),
@@ -37,9 +38,12 @@ const SearchBar = () => {
 
   useEffect(() => {
     // Add a click event listener to the document
-    const handleOutsideClick = (e:any) => {
+    const handleOutsideClick = (e: any) => {
       if (!dateRef.current.contains(e.target)) {
         setDatePicker(false);
+      }
+      if (!optionRef.current.contains(e.target)) {
+        setOptionBox(false);
       }
     };
 
@@ -94,7 +98,8 @@ const SearchBar = () => {
         )}
       </div>
       <div
-        className={headerSearchItem} /// <reference path="dr" />
+        className={headerSearchItem}
+        ref={optionRef} /// <reference path="dr" />
       >
         <FontAwesomeIcon icon={faPerson} className="text-gray-400" />
         <span
