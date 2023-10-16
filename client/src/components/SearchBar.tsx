@@ -4,7 +4,6 @@ import {
   faPerson,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button } from "../TailwindComponents";
 import { useEffect, useState, useRef } from "react";
 import { DateRange } from "react-date-range";
 import { format } from "date-fns";
@@ -86,7 +85,7 @@ const handleSearch = ()=>{
         <FontAwesomeIcon icon={faBed} className="text-gray-300" />
         <input
           type="text"
-          className="border-0 outline-0"
+          className="border-0 outline-0 text-black"
           placeholder="Where are you going"
           value={destination}
           onChange={(e)=> setDestination(e.target.value)}
@@ -149,7 +148,7 @@ const handleSearch = ()=>{
         )}
       </div>
       <div className={headerSearchItem}>
-        <Button classes="bg-[--theme]" action={handleSearch}>Search</Button>
+        <button className="py-[5px] px-[10px] rounded-sm bg-[--theme]" onClick={()=>handleSearch()}>Search</button>
       </div>
     </div>
   );
