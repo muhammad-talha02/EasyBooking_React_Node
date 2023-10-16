@@ -4,13 +4,13 @@ import {
   faPerson,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button } from "../TailwindComponents";
 import { useEffect, useState, useRef } from "react";
 import { DateRange } from "react-date-range";
 import { format } from "date-fns";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { OptionsCard } from ".";
+import { useNavigate } from "react-router-dom";
 
 type OptionsState = {
   adult: number;
@@ -19,8 +19,13 @@ type OptionsState = {
 };
 
 const SearchBar = () => {
+  // Ref
   const dateRef = useRef<any | null>();
   const optionRef = useRef<any | null>();
+// Routes
+
+const navigate = useNavigate()
+  // use States
   const [dateRange, setDateRange] = useState<any>([
     {
       startDate: new Date(),
@@ -29,6 +34,7 @@ const SearchBar = () => {
     },
   ]);
   const [dataPicker, setDatePicker] = useState(false);
+  const [destination, setDestination] = useState("");
   const [optionBox, setOptionBox] = useState<Boolean>(false);
   const [options, setOptions] = useState<OptionsState>({
     adult: 1,
@@ -67,6 +73,11 @@ const SearchBar = () => {
       };
     });
   };
+
+const handleSearch = ()=>{
+  navigate("/hotels", {state:{destination, dateRange, options}})
+}
+
   const headerSearchItem = "flex items-center gap-[10px]";
   return (
     <div className="headerSearch flex justify-around items-center bg-white h-[30px] border-[3px] border-solid border-[#febb02] rounded py-5 px-0 absolute bottom-[-22px] w-full max-w-[1024px]">
@@ -74,8 +85,10 @@ const SearchBar = () => {
         <FontAwesomeIcon icon={faBed} className="text-gray-300" />
         <input
           type="text"
-          className="border-0 outline-0"
+          className="border-0 outline-0 text-black"
           placeholder="Where are you going"
+          value={destination}
+          onChange={(e)=> setDestination(e.target.value)}
         />
       </div>
       <div className={headerSearchItem} ref={dateRef}>
@@ -135,7 +148,7 @@ const SearchBar = () => {
         )}
       </div>
       <div className={headerSearchItem}>
-        <Button classes="bg-[--theme]">Search</Button>
+        <button className="py-[5px] px-[10px] rounded-sm bg-[--theme]" onClick={()=>handleSearch()}>Search</button>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { Navbar } from '../components'
+import { Navbar, SidebarSearch } from '../components'
 import Header from '../sections/Header'
 
 const Home = () => {
@@ -6,6 +6,14 @@ const Home = () => {
     <>
       <Navbar/>
       <Header mode="list"/>
+      <div className="lisContainer flex justify-center mt-10">
+        <div className="lisWrapper w-full max-w-[1024px] gap-[20px] flex px-2">
+          <SidebarSearch/>
+          <div className="listResults flex-[3]">
+            sdfsf
+          </div>
+        </div>
+      </div>
     </>
   )
 }
