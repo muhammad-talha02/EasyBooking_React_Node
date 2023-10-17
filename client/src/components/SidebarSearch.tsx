@@ -11,7 +11,7 @@ const SidebarSearch = () => {
   const [options, setOptions] = useState(location.state.options);
   console.log(location);
   return (
-    <div className="listSearch flex-1 bg-yellow-400 rounded-lg p-2 text-gray-600">
+    <div className="listSearch sticky top-2 h-max flex-1 bg-yellow-400 rounded-lg p-2 text-gray-600">
       <H3>Search</H3>
       <div className="listItem flex flex-col gap-[2px] mb-3">
         <label htmlFor="" className="text-[14px]">

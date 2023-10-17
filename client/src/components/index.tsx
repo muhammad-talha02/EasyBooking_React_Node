@@ -10,3 +10,4 @@ export { default as PropertyCard } from "./PropertyCard";
 export { default as MailList } from "./MailList";
 export { default as FooterListItems } from "./FooterListItems";
 export { default as SidebarSearch } from "./SidebarSearch";
+export { default as SearchCard } from "./SearchCard";
