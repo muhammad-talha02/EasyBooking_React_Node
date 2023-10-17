@@ -1,4 +1,4 @@
-import { Navbar, SidebarSearch } from '../components'
+import { Navbar, SearchCard, SidebarSearch } from '../components'
 import Header from '../sections/Header'
 
 const Home = () => {
@@ -10,7 +10,13 @@ const Home = () => {
         <div className="lisWrapper w-full max-w-[1024px] gap-[20px] flex px-2">
           <SidebarSearch/>
           <div className="listResults flex-[3]">
-            sdfsf
+            <SearchCard/>
+            <SearchCard/>
+            <SearchCard/>
+            <SearchCard/>
+            <SearchCard/>
+            <SearchCard/>
+            <SearchCard/>
           </div>
         </div>
       </div>
