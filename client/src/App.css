@@ -6,3 +6,12 @@
   --theme: #003580;
   --theme-light:#094eaf;
 }
+#root{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  }
+
+  footer{
+    margin-top: auto;
+  }

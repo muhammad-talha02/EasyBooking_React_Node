@@ -71,7 +71,7 @@ const SidebarSearch = () => {
             <input
               type="number"
               min={1}
-              placeholder={location.state.options.adult}
+              placeholder={options.adult}
               className="p-[5px] h-[30px] rounded outline-none w-[70px] mb-3"
             />
           </div>
@@ -80,7 +80,7 @@ const SidebarSearch = () => {
             <input
               type="number"
               min={0}
-              placeholder={location.state.options.children}
+              placeholder={options.children}
               className="p-[5px] h-[30px] rounded outline-none w-[70px] mb-3"
             />
           </div>
@@ -89,7 +89,7 @@ const SidebarSearch = () => {
             <input
               type="number"
               min={1}
-              placeholder={location.state.options.room}
+              placeholder={options.room}
               className="p-[5px] h-[30px] rounded outline-none w-[70px] mb-3"
             />
           </div>
