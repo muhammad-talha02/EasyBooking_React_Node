@@ -1,11 +1,18 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { H3, H4 } from "../TailwindComponents/Typorgraphy/Headings";
-import { MailList, Navbar } from "../components";
+import { GalleryModal, MailList, Navbar } from "../components";
 import Footer from "../sections/Footer";
 import Header from "../sections/Header";
-import { faLocation, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faArrowRight,
+  faLocationDot,
+} from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 const Home = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [sliderNumber, setSliderNumber] = useState(0);
   const Images = [
     {
       src: "https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YXBhcnRtZW50fGVufDB8fDB8fHww&w=400",
@@ -26,46 +33,101 @@ const Home = () => {
       src: "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGFwYXJ0bWVudHxlbnwwfHwwfHx8MA%3D%3D&w=400",
     },
   ];
+  console.log(sliderNumber);
+
   return (
     <>
+      <GalleryModal show={showModal} closeModal={() => setShowModal(false)}>
+        <div className="slider  h-full">
+          <div className="sliderWrapper flex gap-2 p-4 justify-center items-center select-none">
+            <FontAwesomeIcon
+              icon={faArrowLeft}
+              className="text-white text-[22px] bg-black rounded-full p-2 cursor-pointer"
+              onClick={() =>
+                setSliderNumber(
+                  sliderNumber === 0 ? sliderNumber : sliderNumber - 1
+                )
+              }
+            />
+            <img
+              src={Images[sliderNumber].src}
+              alt=""
+              className="w-[90%] h-[80vh] object-cover"
+            />
+            <FontAwesomeIcon
+              icon={faArrowRight}
+              className="text-white text-[22px] bg-black rounded-full p-2 cursor-pointer"
+              onClick={() =>
+                setSliderNumber(
+                  sliderNumber < Images.length - 1 ? sliderNumber + 1 : 0
+                )
+              }
+            />
+          </div>
+        </div>
+      </GalleryModal>
       <Navbar />
       <Header mode="list" />
       <div className="hotelContainer p-1 w-full max-w-[1024px] mx-auto mt-3">
         <div className="hotetWrapper flex flex-col gap-3 relative">
           <div className="flex flex-col gap-[5px]">
-          <H3 classes="text-[--theme-light]">Tower Sky Hotel</H3>
+            <H3 classes="text-[--theme-light]">Tower Sky Hotel</H3>
             <div className="flex gap-2 text-[14px] items-center">
               <FontAwesomeIcon icon={faLocationDot} />
-            <span>Al Reem Island, Abu Dhabi, UAE</span>
-              </div>
-          <span className="text-[--theme] font-bold">Excellent Location - 500m from Gate Towers</span>
-          <span className="text-[green]">Book a stay over 500 AED and get a free airport taxi </span>
-          <button className="bg-[--theme] text-white w-max px-5 py-1 rounded-sm">Book Now</button>
-          </div>
-      <div className="gallery flex flex-wrap justify-between gap-y-1">
-        {
-          Images.map((img)=>(
-            <div className="w-[33%]">
-          <img src={img.src} className="w-full object-cover h-full"/>
+              <span>Al Reem Island, Abu Dhabi, UAE</span>
             </div>
-          ))
-        }
+            <span className="text-[--theme] font-bold">
+              Excellent Location - 500m from Gate Towers
+            </span>
+            <span className="text-[green]">
+              Book a stay over 500 AED and get a free airport taxi{" "}
+            </span>
+            <button className="bg-[--theme] text-white w-max px-5 py-1 rounded-sm">
+              Book Now
+            </button>
+          </div>
+          <div className="gallery flex flex-wrap justify-between gap-y-1">
+            {Images.map((img, index) => (
+              <div className="w-[33%]" key={index}>
+                <img
+                  src={img.src}
+                  onClick={() => {
+                    setSliderNumber(index);
+                    setShowModal(true);
+                  }}
+                  className="w-full object-cover h-full cursor-pointer"
+                />
+              </div>
+            ))}
+          </div>
+          <div className="hotelDetails flex flex-1 justify-between gap-5 mt-5">
+            <div className="">
+              <H3>Stay in the city of lights</H3>
+              <span className="text-[14px] mt-5">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Omnis
+                explicabo labore dicta exercitationem tenetur. Deserunt,
+                molestiae rerum reprehenderit perferendis ducimus, voluptate
+                dolore, aut eligendi nulla delectus beatae earum sint aliquid.
+              </span>
+            </div>
+            <div className="flex flex-col flex-3 gap-[10px] bg-[#67a6ff30] p-2">
+              <H4>Perfect for 6-night stay</H4>
+              <span className="text-[14px]">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Omnis
+                explicabo labore dicta exercitationem tenetur. Deserunt,
+                molestiae rerum reprehenderit
+              </span>
+              <span>
+                <strong>999 AED </strong>(9 Nights)
+              </span>
+              <button className="bg-[--theme] text-white px-5 py-1 rounded-sm">
+                Reserve or Book Now
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="hotelDetails flex flex-1 justify-between gap-5 mt-5">
-      <div className="">
-        <H3>Stay in the city of lights</H3>
-        <span className="text-[14px] mt-5">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Omnis explicabo labore dicta exercitationem tenetur. Deserunt, molestiae rerum reprehenderit perferendis ducimus, voluptate dolore, aut eligendi nulla delectus beatae earum sint aliquid.</span>
-      </div>
-      <div className="flex flex-col flex-3 gap-[10px] bg-[#67a6ff30] p-2">
-        <H4>Perfect for 6-night stay</H4>
-        <span className="text-[14px]">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Omnis explicabo labore dicta exercitationem tenetur. Deserunt, molestiae rerum reprehenderit</span>
-        <span><strong>999 AED </strong>(9 Nights)</span>
-        <button className="bg-[--theme] text-white px-5 py-1 rounded-sm">Reserve or Book Now</button>
-      </div>
-      </div>
-      </div>
-      </div>
-      <MailList/>
+      <MailList />
       <Footer />
     </>
   );
