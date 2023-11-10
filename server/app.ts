@@ -13,7 +13,7 @@ app.use(express.json());
 app.get("/", (req: Request, res: Response, next: NextFunction) => {
   res.send({
     success: true,
-    message: "Serevr is Working",
+    message: "Server is Working",
   });
 });
 
@@ -21,7 +21,7 @@ app.use("/api/users", userRouter);
 app.use("/api/hotels", hotelsRouter);
 
 app.all("*", (req, res, next) => {
-  next(new ErrorHandler("Route not found", 400));
+  next(new ErrorHandler("Route not found", 404));
 });
 
 // Error Middleware
