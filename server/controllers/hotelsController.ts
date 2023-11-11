@@ -11,7 +11,7 @@ export const createHotel = catchAsyncError(
       const savedHotel = await newHotel.save();
       res.status(200).json(savedHotel);
     } catch (error: any) {
-      next(new ErrorHandler(error.message, 404));
+      return next(new ErrorHandler(error.message, 404));
     }
   }
 );
@@ -31,7 +31,7 @@ export const updateHotel = catchAsyncError(
       );
       res.status(200).json(updateHotel);
     } catch (error: any) {
-      next(new ErrorHandler(error.message, 404));
+      return next(new ErrorHandler(error.message, 404));
     }
   }
 );
@@ -45,7 +45,7 @@ export const deleteHotel = catchAsyncError(
       const deleteHotel = await Hotel.findByIdAndDelete(id);
       res.status(200).json({ success: true, message: "Delete Successfully" });
     } catch (error: any) {
-      next(new ErrorHandler(error.message, 404));
+      return next(new ErrorHandler(error.message, 404));
     }
   }
 );
@@ -59,7 +59,7 @@ export const getSingleHotel = catchAsyncError(
       const gethotel = await Hotel.findById(id);
       res.status(200).json(gethotel);
     } catch (error: any) {
-      next(new ErrorHandler(error.message, 404));
+      return next(new ErrorHandler(error.message, 404));
     }
   }
 );
@@ -68,12 +68,11 @@ export const getSingleHotel = catchAsyncError(
 
 export const getAllHotels = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
-    const id = req.params.id;
     try {
       const hotels = await Hotel.find();
       res.status(200).json(hotels);
     } catch (error: any) {
-      next(new ErrorHandler(error.message, 404));
+      return next(new ErrorHandler(error.message, 404));
     }
   }
 );
