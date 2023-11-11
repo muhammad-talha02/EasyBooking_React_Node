@@ -13,6 +13,7 @@ const connectDB = () => {
 };
 
 mongoose.connection.on("connected", ()=>console.log("connection stable"))
+mongoose.connection.on("disconnected", ()=>console.log("Disconnect connection WIth MongoDB"))
 
 app.listen(process.env.PORT, () => {
   connectDB();
