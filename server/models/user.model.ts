@@ -1,6 +1,14 @@
-import mongoose from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 import bcrypt from "bcryptjs";
-const userSchema = new mongoose.Schema(
+
+interface UserInterface extends Document {
+  username: string;
+  email: string;
+  password: string;
+  isAdmin?: boolean;
+  comparePassword: (password: string) => Boolean;
+}
+const userSchema: Schema<UserInterface> = new mongoose.Schema(
   {
     username: {
       type: String,
@@ -21,10 +29,22 @@ const userSchema = new mongoose.Schema(
       default: false,
     },
   },
-  { timestamps: true }
+  {
+    toJSON: {
+      transform(doc, ret, options) {
+        ret.id = ret._id;
+        delete ret._id
+        delete ret.password;
+        delete ret.__v;
+      },
+    },
+    timestamps: true
+  },
 );
 
-userSchema.pre("save", async function (next) {
+// Encypt password
+
+userSchema.pre<UserInterface>("save", async function (next) {
   if (!this.isModified("password")) {
     next();
   }
@@ -32,6 +52,10 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
+userSchema.methods.comparePassword = async function (enteredPassword: string) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
+
 const User = mongoose.model("Users", userSchema);
 
-export default User
+export default User;
