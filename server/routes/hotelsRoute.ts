@@ -1,15 +1,12 @@
-import express, { NextFunction, Request, Response } from "express";
-// import ErrorHandler from "../utils/ErrorHandler";
-import { createHotel } from "../controllers/hotelsController";
+import express from "express";
+import { createHotel, deleteHotel, getAllHotels, getSingleHotel, updateHotel } from "../controllers/hotelsController";
 
 const hotelsRouter = express.Router();
 
-// Create
-
 hotelsRouter.post("/hotel", createHotel);
-
-// hotelsRouter.get("/", (req: Request, res: Response, next: NextFunction) => {
-//   res.send("Hotels");
-// });
+hotelsRouter.put("/hotel/:id", updateHotel);
+hotelsRouter.delete("/hotel/:id", deleteHotel);
+hotelsRouter.get("/hotel/:id", getSingleHotel);
+hotelsRouter.get("/", getAllHotels);
 
 export default hotelsRouter;
