@@ -39,12 +39,14 @@ export const loginUser = catchAsyncError(
       if (!user) {
         return next(new ErrorHandler("Email not exists", 400));
       }
-      const isPasswordMatch = await user.comparePassword(password);
+      const isPasswordMatch = user.comparePassword(password);
       if (!isPasswordMatch) {
-        return next(new ErrorHandler("Password INcorrect", 400));
+        return next(new ErrorHandler("Password Incorrect", 400));
       }
 
-      const token = jwt.sign({ user }, process.env.SECRET_KEY as string);
+      const token = jwt.sign({ user }, process.env.SECRET_KEY as string , {
+        expiresIn:"5m"
+      });
       console.log(token);
       res
         .cookie("access_token", token, {
@@ -62,6 +64,7 @@ export const loginUser = catchAsyncError(
 
 export const updateUser = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
+    const token = req.cookies.access_token;
     const id = req.params.id;
     const data = req.body;
     try {
