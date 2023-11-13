@@ -3,11 +3,11 @@ import userRouter from "./routes/userRoute";
 import hotelsRouter from "./routes/hotelsRoute";
 import ErrorMiddleware from "./Middlewares/ErrorMiddleware";
 import ErrorHandler from "./utils/ErrorHandler";
-
+import cookieParser from "cookie-parser"
 export const app = express();
 
 // Middlewares
-
+app.use(cookieParser())
 app.use(express.json());
 
 app.get("/", (req: Request, res: Response, next: NextFunction) => {
