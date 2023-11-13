@@ -2,7 +2,9 @@ import express, { NextFunction, Request, Response } from "express";
 import { catchAsyncError } from "../Middlewares/catchAyncError";
 import User from "../models/user.model";
 import ErrorHandler from "../utils/ErrorHandler";
-import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import { configDotenv } from "dotenv";
+configDotenv();
 // Register
 export const registerUser = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -31,9 +33,9 @@ export const loginUser = catchAsyncError(
       if (!email || !password) {
         return next(new ErrorHandler("Please Enter email and password", 400));
       }
-        // const user = await User.findOne({ email });
+
       const user = await User.findOne({ email });
-      console.log("User",user);
+
       if (!user) {
         return next(new ErrorHandler("Email not exists", 400));
       }
@@ -41,9 +43,61 @@ export const loginUser = catchAsyncError(
       if (!isPasswordMatch) {
         return next(new ErrorHandler("Password INcorrect", 400));
       }
-      res.status(200).json(user);
+
+      const token = jwt.sign({ user }, process.env.SECRET_KEY as string);
+      console.log(token);
+      res
+        .cookie("access_token", token, {
+          httpOnly: true,
+        })
+        .status(200)
+        .json({ user, token: token });
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 404));
+    }
+  }
+);
+
+// Update User
+
+export const updateUser = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id;
+    const data = req.body;
+    try {
+      const checkUser = await User.findById(id);
+      if (!checkUser) {
+        return next(new ErrorHandler("User not found", 400));
+      }
+
+      const updatedUser = await User.findByIdAndUpdate(
+        id,
+        { $set: data },
+        { new: true }
+      );
+
+      res.status(200).json(updatedUser);
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);
+
+
+// Update User
+
+export const getUser = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id;
+    try {
+      const checkUser = await User.findById(id);
+      if (!checkUser) {
+        return next(new ErrorHandler("User not found", 400));
+      }
+
+      res.status(200).json(checkUser);
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
     }
   }
 );
