@@ -37,14 +37,11 @@ export const verifyUser = catchAsyncError(
 export const verifyAdmin = catchAsyncError(
   async (req: verifyTokenRequest, res: Response, next: NextFunction) => {
     const token = req.cookies.access_token;
-
-    if (!token) {
-      console.log("Token user", token);
-      return next(new ErrorHandler("Session Expired", 401));
-    }
     try {
-      console.log({ VerifyToken: token });
-
+      if (!token) {
+        console.log("Token user", token);
+        return next(new ErrorHandler("Session Expired", 401));
+      }
       const getUser: any = jwt.verify(token, process.env.SECRET_KEY as string);
       if (!getUser) {
         return next(new ErrorHandler("Token is not Valid", 403));
@@ -57,7 +54,7 @@ export const verifyAdmin = catchAsyncError(
         return next(new ErrorHandler("Hey you are not admin ok!", 400));
       }
     } catch (error) {
-      return next(new ErrorHandler("JWT EROR>>>>", 400));
+      return next(new ErrorHandler("User not found! Token Error ):", 404));
     }
   }
 );
