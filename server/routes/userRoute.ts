@@ -7,7 +7,7 @@ import {
   registerUser,
   updateUser,
 } from "../controllers/userController";
-import { verifyAdmin, verifyToken, verifyUser } from "../utils/verifyToken";
+import { verifyAdmin, verifyUser } from "../controllers/authController";
 
 const userRouter = express.Router();
 
