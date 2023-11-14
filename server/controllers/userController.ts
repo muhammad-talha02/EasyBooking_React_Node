@@ -44,8 +44,8 @@ export const loginUser = catchAsyncError(
         return next(new ErrorHandler("Password Incorrect", 400));
       }
 
-      const token = jwt.sign({ user }, process.env.SECRET_KEY as string , {
-        expiresIn:"5m"
+      const token = jwt.sign({ user }, process.env.SECRET_KEY as string, {
+        expiresIn: "5m",
       });
       console.log(token);
       res
@@ -86,7 +86,6 @@ export const updateUser = catchAsyncError(
   }
 );
 
-
 // Update User
 
 export const getUser = catchAsyncError(
@@ -99,6 +98,40 @@ export const getUser = catchAsyncError(
       }
 
       res.status(200).json(checkUser);
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);
+
+// Delete User
+
+export const deleteUser = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id;
+    try {
+      const checkUser = await User.findById(id);
+      if (!checkUser) {
+        return next(new ErrorHandler("User not found", 400));
+      }
+      const deleteUser = await User.findByIdAndDelete(id);
+      res.status(200).json(deleteUser);
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);
+
+
+export const getAllUsers = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id;
+    try {
+      const users = await User.find();
+      if (!users) {
+        return next(new ErrorHandler("hey there is no user here Plkease add", 400));
+      }
+      res.status(200).json(users);
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));
     }

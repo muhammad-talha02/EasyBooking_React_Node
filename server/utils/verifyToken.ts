@@ -34,11 +34,25 @@ export const verifyUser = catchAsyncError(
   async (req: verifyTokenRequest, res: Response, next: NextFunction) => {
     verifyToken(req, res, () => {
       console.log("Verifying user", req.user.id);
-      if(req.user.id === req.params.id){
+      if(req.user.id === req.params.id || req.user.isAdmin){
         next()
       }
       else{
         return next(new ErrorHandler("User not Valid", 400))
+      }
+    });
+  }
+);
+
+export const verifyAdmin = catchAsyncError(
+  async (req: verifyTokenRequest, res: Response, next: NextFunction) => {
+    verifyToken(req, res, () => {
+      // console.log("Verifying user", req.user.id);
+      if(req.user.isAdmin){
+        next()
+      }
+      else{
+        return next(new ErrorHandler("Hey you are not admin ok!", 400))
       }
     });
   }
