@@ -76,3 +76,24 @@ export const getAllHotels = catchAsyncError(
     }
   }
 );
+// Get All Hotels by Citry
+
+export const getAllHotelsByCity = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    let cities: any = req.query.cities;
+    cities = cities.split(",");
+    console.log("CItites", cities);
+    try {
+      const hotelsByCity = await Promise.all(
+        cities.map((city: string) => {
+          console.log("Getting");
+          return Hotel.countDocuments({ city: city });
+        })
+      );
+
+      res.status(200).json(hotelsByCity);
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 404));
+    }
+  }
+);
