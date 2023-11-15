@@ -3,11 +3,12 @@ import userRouter from "./routes/userRoute";
 import hotelsRouter from "./routes/hotelsRoute";
 import ErrorMiddleware from "./Middlewares/ErrorMiddleware";
 import ErrorHandler from "./utils/ErrorHandler";
-import cookieParser from "cookie-parser"
+import cookieParser from "cookie-parser";
+import roomRouter from "./routes/roomRoute";
 export const app = express();
 
 // Middlewares
-app.use(cookieParser())
+app.use(cookieParser());
 app.use(express.json());
 
 app.get("/", (req: Request, res: Response, next: NextFunction) => {
@@ -19,6 +20,7 @@ app.get("/", (req: Request, res: Response, next: NextFunction) => {
 
 app.use("/api/users", userRouter);
 app.use("/api/hotels", hotelsRouter);
+app.use("/api/rooms", roomRouter);
 
 app.all("*", (req, res, next) => {
   next(new ErrorHandler("Route not found", 404));
