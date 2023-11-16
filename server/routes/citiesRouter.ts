@@ -1,10 +1,11 @@
 import express from "express";
-import { createCity, deleteCity } from "../controllers/cityController";
+import { createCity, deleteCity, getAllCities } from "../controllers/cityController";
 
 const cityRouter = express.Router();
 
 cityRouter.post("/create", createCity)
-cityRouter.post("/delete", deleteCity)
+cityRouter.delete("/delete", deleteCity)
+cityRouter.get("/", getAllCities)
 
 
 export default cityRouter
