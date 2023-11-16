@@ -6,6 +6,7 @@ import ErrorHandler from "./utils/ErrorHandler";
 import cookieParser from "cookie-parser";
 import roomRouter from "./routes/roomRoute";
 import cors from "cors";
+import cityRouter from "./routes/citiesRouter";
 export const app = express();
 
 // Middlewares
@@ -23,6 +24,7 @@ app.get("/", (req: Request, res: Response, next: NextFunction) => {
 app.use("/api/users", userRouter);
 app.use("/api/hotels", hotelsRouter);
 app.use("/api/rooms", roomRouter);
+app.use("/api/cities", cityRouter);
 
 app.all("*", (req, res, next) => {
   next(new ErrorHandler("Route not found", 404));
