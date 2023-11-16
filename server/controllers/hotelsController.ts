@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { catchAsyncError } from "../Middlewares/catchAyncError";
 import Hotel from "../models/hotel.model";
 import ErrorHandler from "../utils/ErrorHandler";
+import City from "../models/city.model";
 
 // Create
 export const createHotel = catchAsyncError(
@@ -9,6 +10,10 @@ export const createHotel = catchAsyncError(
     try {
       const newHotel = new Hotel(req.body);
       const savedHotel = await newHotel.save();
+      const addHotelInCity = await City.findOneAndUpdate(
+        { name: savedHotel.city },
+        { $push: { properties: savedHotel._id } }
+      );
       res.status(200).json(savedHotel);
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 404));
@@ -42,6 +47,13 @@ export const deleteHotel = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id;
     try {
+      const getHotel = await Hotel.findById(id);
+      const removeFromCity = await City.findOneAndUpdate(
+        { name: getHotel?.city },
+        {
+          $pull: { properties: id },
+        }
+      );
       const deleteHotel = await Hotel.findByIdAndDelete(id);
       res.status(200).json({ success: true, message: "Delete Successfully" });
     } catch (error: any) {
@@ -82,7 +94,6 @@ export const getAllHotelsByCity = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     let cities: any = req.query.cities;
     cities = cities.split(",");
-    console.log("CItites", cities);
     try {
       const hotelsByCity = await Promise.all(
         cities.map((city: string) => {
