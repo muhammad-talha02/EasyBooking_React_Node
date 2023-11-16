@@ -5,9 +5,11 @@ import ErrorMiddleware from "./Middlewares/ErrorMiddleware";
 import ErrorHandler from "./utils/ErrorHandler";
 import cookieParser from "cookie-parser";
 import roomRouter from "./routes/roomRoute";
+import cors from "cors";
 export const app = express();
 
 // Middlewares
+app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 
