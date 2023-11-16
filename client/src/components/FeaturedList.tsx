@@ -7,13 +7,14 @@ import { HomeContainer } from "./HOC";
 //   loading:boolean,
 //   error:any
 // }
+// const cities = ["Abu Dhabi", "Dubai", 'Sharjah']
 
 const FeaturedList = (): JSX.Element => {
   const {
     data: FeatureData,
     loading,
     error,
-  } = useFetch("/api/hotels/countByCity?cities=Abu Dhabi,Dubai,Sharjah");
+  } = useFetch(`/api/cities`);
 
   console.log(FeatureData);
   return (
@@ -23,7 +24,7 @@ const FeaturedList = (): JSX.Element => {
         : FeatureData?.map((item: any) => {
             return (
               <>
-                <FeatureItem item={item} key={item} />
+                <FeatureItem item={item} key={item}/>
               </>
             );
           })}
