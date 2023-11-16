@@ -29,3 +29,14 @@ export const deleteCity = catchAsyncError(
     }
   }
 );
+
+export const getAllCities = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const cities = await City.find();
+      res.status(200).json(cities);
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 404));
+    }
+  }
+);
