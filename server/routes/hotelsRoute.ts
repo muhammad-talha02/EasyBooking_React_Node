@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  countByType,
   createHotel,
   deleteHotel,
   getAllHotels,
@@ -17,6 +18,6 @@ hotelsRouter.delete("/hotel/:id", verifyAdmin, deleteHotel);
 hotelsRouter.get("/hotel/:id", getSingleHotel);
 hotelsRouter.get("/", getAllHotels);
 hotelsRouter.get("/countByCity", getAllHotelsByCity);
-hotelsRouter.get("/countByType", getAllHotels);
+hotelsRouter.get("/countByType", countByType);
 
 export default hotelsRouter;
