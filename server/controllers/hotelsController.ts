@@ -108,3 +108,29 @@ export const getAllHotelsByCity = catchAsyncError(
     }
   }
 );
+
+// Filter by property Type
+
+export const countByType = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const hotelCount = await Hotel.countDocuments({ type: "hotel" });
+      const apartmentCount = await Hotel.countDocuments({ type: "apartment" });
+      const resortCount = await Hotel.countDocuments({ type: "resort" });
+      const villaCount = await Hotel.countDocuments({ type: "villa" });
+      const cabinCount = await Hotel.countDocuments({ type: "cabin" });
+
+      res
+        .status(200)
+        .json([
+          {type:"hotel", count:hotelCount},
+          {type:"apartment", count:apartmentCount},
+          {type:"resort", count:resortCount},
+          {type:"villa", count:villaCount},
+          {type:"cabin", count:cabinCount},
+        ]);
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 404));
+    }
+  }
+);
