@@ -80,14 +80,16 @@ export const getSingleHotel = catchAsyncError(
 
 export const getAllHotels = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
+    const limit:any= req?.query?.limit
     try {
-      const hotels = await Hotel.find();
+      const hotels = await Hotel.find(req?.query).limit(limit);
       res.status(200).json(hotels);
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 404));
     }
   }
 );
+
 // Get All Hotels by Citry
 
 export const getAllHotelsByCity = catchAsyncError(
@@ -120,15 +122,13 @@ export const countByType = catchAsyncError(
       const villaCount = await Hotel.countDocuments({ type: "villa" });
       const cabinCount = await Hotel.countDocuments({ type: "cabin" });
 
-      res
-        .status(200)
-        .json([
-          {type:"hotel", count:hotelCount},
-          {type:"apartment", count:apartmentCount},
-          {type:"resort", count:resortCount},
-          {type:"villa", count:villaCount},
-          {type:"cabin", count:cabinCount},
-        ]);
+      res.status(200).json([
+        { type: "hotel", count: hotelCount },
+        { type: "apartment", count: apartmentCount },
+        { type: "resort", count: resortCount },
+        { type: "villa", count: villaCount },
+        { type: "cabin", count: cabinCount },
+      ]);
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 404));
     }

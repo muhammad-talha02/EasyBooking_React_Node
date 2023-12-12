@@ -20,12 +20,10 @@ const FeaturedList = (): JSX.Element => {
   return (
     <div className="featured w-full max-w-[1024px] flex justify-between gap-[20px]">
       {loading
-        ? "Please Waitt"
+        ? "Please Wait...."
         : FeatureData?.map((item: any) => {
             return (
-              <>
-                <FeatureItem item={item} key={item}/>
-              </>
+                <FeatureItem item={item} key={item.name}/>
             );
           })}
     </div>

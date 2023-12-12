@@ -1,4 +1,4 @@
-import { H1, H2, H3 } from "../TailwindComponents/Typorgraphy/Headings";
+import {H2, H3 } from "../TailwindComponents/Typorgraphy/Headings";
 
 interface FeatureItem {
   item: any;
