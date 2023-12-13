@@ -1,6 +1,7 @@
 import { FeatureItem } from ".";
 import useFetch from "../hooks/useFetch";
 import { HomeContainer } from "./HOC";
+import Loader from "./Loader";
 
 // interface useFetchProps {
 //   data:any,
@@ -20,7 +21,7 @@ const FeaturedList = (): JSX.Element => {
   return (
     <div className="featured w-full max-w-[1024px] flex justify-between gap-[20px]">
       {loading
-        ? "Please Wait...."
+        ? <Loader/>
         : FeatureData?.map((item: any) => {
             return (
                 <FeatureItem item={item} key={item.name}/>
