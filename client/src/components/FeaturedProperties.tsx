@@ -2,10 +2,12 @@ import { PropertyCard } from ".";
 import { H3 } from "../TailwindComponents/Typorgraphy/Headings";
 import useFetch from "../hooks/useFetch";
 import { HomeContainer } from "./HOC";
+import Loader from "./Loader";
 
 const FeaturedProperties = () => {
-  const { data, loading } = useFetch("/api/hotels?featured=true&limit=3");
+  const { data, loading } = useFetch("/api/hotels?featured=true&limit=4");
   console.log("Feature ", data);
+  if(loading) return <Loader/>
   return (
     <div className="w-full">
       <H3 classes="">Home Guests Love</H3>

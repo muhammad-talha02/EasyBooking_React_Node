@@ -1,7 +1,7 @@
 import { Navbar, SearchCard, SidebarSearch } from '../components'
 import Header from '../sections/Header'
 
-const Home = () => {
+const List = () => {
   return (
     <>
       <Navbar/>
@@ -24,4 +24,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default List

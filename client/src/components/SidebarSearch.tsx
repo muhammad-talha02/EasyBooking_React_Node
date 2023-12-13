@@ -5,10 +5,20 @@ import { format } from "date-fns";
 import { DateRange } from "react-date-range";
 const SidebarSearch = () => {
   const location = useLocation();
-  const [dateRange, setDateRange] = useState(location.state.dateRange);
-  const [destination, setDestination] = useState(location.state.destination);
+  const [dateRange, setDateRange] = useState(
+    location?.state?.dateRange ||
+    [
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    }]
+  );
+  const [destination, setDestination] = useState(
+    location?.state?.destination || ""
+  );
   const [dataPicker, setDatePicker] = useState(false);
-  const [options, setOptions] = useState(location.state.options);
+  const [options, setOptions] = useState(location?.state?.options);
   console.log(location);
   return (
     <div className="listSearch sticky top-2 h-max flex-1 bg-yellow-400 rounded-lg p-2 text-gray-600">
@@ -30,10 +40,13 @@ const SidebarSearch = () => {
         <span
           className="text-gray-600  cursor-pointer p-[5px] h-[30px] bg-white flex items-center rounded outline-none"
           onClick={() => setDatePicker(!dataPicker)}
-        >{`${format(dateRange[0].startDate, "MM/dd/yyyy")} to ${format(
-          dateRange[0].endDate,
-          "MM/dd/yyyy"
-        )}`}</span>
+        >
+          {dateRange &&
+            `${format(dateRange[0]?.startDate || "", "MM/dd/yyyy")} to ${format(
+              dateRange[0]?.endDate || "",
+              "MM/dd/yyyy"
+            )}`}
+        </span>
         {dataPicker && (
           <DateRange
             editableDateInputs={true}
@@ -71,7 +84,7 @@ const SidebarSearch = () => {
             <input
               type="number"
               min={1}
-              placeholder={options.adult}
+              placeholder={options?.adult}
               className="p-[5px] h-[30px] rounded outline-none w-[70px] mb-3"
             />
           </div>
@@ -80,7 +93,7 @@ const SidebarSearch = () => {
             <input
               type="number"
               min={0}
-              placeholder={options.children}
+              placeholder={options?.children}
               className="p-[5px] h-[30px] rounded outline-none w-[70px] mb-3"
             />
           </div>
@@ -89,7 +102,7 @@ const SidebarSearch = () => {
             <input
               type="number"
               min={1}
-              placeholder={options.room}
+              placeholder={options?.room}
               className="p-[5px] h-[30px] rounded outline-none w-[70px] mb-3"
             />
           </div>
