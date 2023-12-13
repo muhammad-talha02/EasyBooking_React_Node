@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response, query } from "express";
 import { catchAsyncError } from "../Middlewares/catchAyncError";
 import Hotel from "../models/hotel.model";
 import ErrorHandler from "../utils/ErrorHandler";
@@ -80,9 +80,20 @@ export const getSingleHotel = catchAsyncError(
 
 export const getAllHotels = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
-    const limit:any= req?.query?.limit
+    const { min, max, ...query } = req.query;
+    const limit: any = query?.limit;
+    // const maxPrice = max + 1;
+    const options: any = {};
+    query?.featured ? (options.featured = query?.featured) : "";
+    console.log("Options", query);
     try {
-      const hotels = await Hotel.find(req?.query).limit(limit);
+      const hotels = await Hotel.find({
+        // ...options,
+        cheapestPrice: {
+          $gte: Number(min) || 1,
+          $lte: Number(max) || 100000,
+        },
+      }).limit(limit);
       res.status(200).json(hotels);
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 404));

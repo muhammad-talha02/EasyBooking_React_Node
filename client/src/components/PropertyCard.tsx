@@ -3,6 +3,7 @@ interface IPropertyCard {
     name: string;
     city: string;
     cheapestPrice: number;
+    rating: number;
   };
 }
 
@@ -18,12 +19,15 @@ const PropertyCard = ({ item }: IPropertyCard) => {
       <div className="cardPrice font-semibold">
         Starting from {item.cheapestPrice} AED
       </div>
+      {
+        item?.rating &&
       <div className="cardRating">
         <button className="text-white bg-[--theme] px-1 rounded-sm mr-5">
-          8.9
+          {item?.rating}
         </button>
         <span className="font-[500]">Excellent</span>
       </div>
+      }
     </div>
   );
 };
