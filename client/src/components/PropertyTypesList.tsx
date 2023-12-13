@@ -2,6 +2,7 @@ import { ProperttyTypeItem } from ".";
 import { H3 } from "../TailwindComponents/Typorgraphy/Headings";
 import useFetch from "../hooks/useFetch";
 import { HomeContainer } from "./HOC";
+import Loader from "./Loader";
 
 const PropertyTypesList = () => {
   const images = [
@@ -17,7 +18,7 @@ const PropertyTypesList = () => {
       <H3 classes="">Browse by property types</H3>
       <div className="pList mt-[20px] flex gap-[20px] justify-between">
         {loading
-          ? "Loading...."
+          ? <Loader/>
           : data?.map((item: any, index:number) => {
               return <ProperttyTypeItem key={item.type} img={images[index]} item={item} />;
             })}
