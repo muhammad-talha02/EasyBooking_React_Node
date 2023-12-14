@@ -85,10 +85,11 @@ export const getAllHotels = catchAsyncError(
     // const maxPrice = max + 1;
     const options: any = {};
     query?.featured ? (options.featured = query?.featured) : "";
+    query?.city ? (options.city = query?.city) : "";
     console.log("Options", query);
     try {
       const hotels = await Hotel.find({
-        // ...options,
+        ...options,
         cheapestPrice: {
           $gte: Number(min) || 1,
           $lte: Number(max) || 100000,
