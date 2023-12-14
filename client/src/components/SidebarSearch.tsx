@@ -1,25 +1,41 @@
 import { useLocation } from "react-router-dom";
 import { H3 } from "../TailwindComponents/Typorgraphy/Headings";
-import { useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
-const SidebarSearch = () => {
+import { useDebouncedCallback } from "use-debounce";
+import useFetch from "../hooks/useFetch";
+const SidebarSearch = ({ setHotelData }: any) => {
   const location = useLocation();
   const [dateRange, setDateRange] = useState(
-    location?.state?.dateRange ||
-    [
-    {
-      startDate: new Date(),
-      endDate: new Date(),
-      key: "selection",
-    }]
+    location?.state?.dateRange || [
+      {
+        startDate: new Date(),
+        endDate: new Date(),
+        key: "selection",
+      },
+    ]
   );
-  const [destination, setDestination] = useState(
-    location?.state?.destination || ""
+  const [searchHotel, setSearchHotel] = useState<string>(
+    location?.state?.destination || "Dubai"
   );
   const [dataPicker, setDatePicker] = useState(false);
   const [options, setOptions] = useState(location?.state?.options);
   console.log(location);
+
+  const handleSearch = useDebouncedCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchHotel(e.target.value);
+    },
+    800
+  );
+
+  const { data, loading , isSuccess} = useFetch(`/api/hotels?city=${searchHotel}`);
+  useEffect(() => {
+    if (!loading) {
+      setHotelData({ data, loading , isSuccess });
+    }
+  }, [isSuccess]);
   return (
     <div className="listSearch sticky top-2 h-max flex-1 bg-yellow-400 rounded-lg p-2 text-gray-600">
       <H3>Search</H3>
@@ -29,8 +45,10 @@ const SidebarSearch = () => {
         </label>
         <input
           type="text"
-          placeholder={destination}
+          defaultValue={searchHotel}
+          placeholder={searchHotel}
           className="p-[5px] h-[30px] rounded outline-none"
+          onChange={(e) => handleSearch(e)}
         />
       </div>
       <div className="listItem flex flex-col gap-[2px] mb-3 relative">
