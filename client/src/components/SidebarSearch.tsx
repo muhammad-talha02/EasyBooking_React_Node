@@ -20,6 +20,8 @@ const SidebarSearch = ({ setHotelData }: any) => {
     location?.state?.destination || "Dubai"
   );
   const [dataPicker, setDatePicker] = useState(false);
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
   const [options, setOptions] = useState(location?.state?.options);
   console.log(location);
 
@@ -30,11 +32,18 @@ const SidebarSearch = ({ setHotelData }: any) => {
     800
   );
 
-  const { data, loading , isSuccess} = useFetch(`/api/hotels?city=${searchHotel}`);
+  const { data, loading, isSuccess, reFetch } = useFetch(`/api/hotels?city=${searchHotel}&min=${minPrice || 0}&max=${maxPrice || 10000}`);
+
+  const handleSearchHotel = () => {
+    reFetch()
+    setHotelData({ data, loading, isSuccess });
+  }
+
+  console.log("Usefecc", isSuccess)
   useEffect(() => {
-    if (!loading) {
-      setHotelData({ data, loading , isSuccess });
-    }
+    // if (!loading) {
+    setHotelData({ data, loading, isSuccess });
+    // }
   }, [isSuccess]);
   return (
     <div className="listSearch sticky top-2 h-max flex-1 bg-yellow-400 rounded-lg p-2 text-gray-600">
@@ -86,6 +95,8 @@ const SidebarSearch = ({ setHotelData }: any) => {
             <input
               type="number"
               className="p-[5px] h-[30px] rounded outline-none w-[70px] mb-3"
+              value={minPrice}
+              onChange={(e) => setMinPrice(e.target.value)}
             />
           </div>
           <div className="optionItem flex justify-between items-center">
@@ -95,6 +106,8 @@ const SidebarSearch = ({ setHotelData }: any) => {
             <input
               type="number"
               className="p-[5px] h-[30px] rounded outline-none w-[70px] mb-3"
+              value={maxPrice}
+              onChange={(e) => setMaxPrice(e.target.value)}
             />
           </div>
           <div className="optionItem flex justify-between items-center">
@@ -124,7 +137,7 @@ const SidebarSearch = ({ setHotelData }: any) => {
               className="p-[5px] h-[30px] rounded outline-none w-[70px] mb-3"
             />
           </div>
-          <button className="p-[10px] bg-[--theme] font-[500] text-white w-full">
+          <button className="p-[10px] bg-[--theme] font-[500] text-white w-full" onClick={handleSearchHotel}>
             Search
           </button>
         </div>

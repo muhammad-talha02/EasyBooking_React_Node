@@ -23,10 +23,11 @@ const useFetch = (url: string) => {
     };
     
     fetchData();
-  }, [url]);
+  }, []);
   
   const reFetch = async () => {
     setLoading(true);
+    setIsSuccess(false);
     try {
       const response = await axios.get(url);
       setData(response.data);
