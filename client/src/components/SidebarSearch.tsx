@@ -36,7 +36,7 @@ const SidebarSearch = ({ setHotelData }: any) => {
 
   const handleSearchHotel = () => {
     reFetch()
-    setHotelData({ data, loading, isSuccess });
+    // setHotelData({ data, loading, isSuccess });
   }
 
   console.log("Usefecc", isSuccess)
