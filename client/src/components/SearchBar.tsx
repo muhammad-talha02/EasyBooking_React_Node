@@ -4,13 +4,14 @@ import {
   faPerson,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import { DateRange } from "react-date-range";
 import { format } from "date-fns";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { OptionsCard } from ".";
 import { useNavigate } from "react-router-dom";
+import { SearchContext } from "../context/searchContext";
 
 type OptionsState = {
   adult: number;
@@ -18,13 +19,16 @@ type OptionsState = {
   room: number;
 };
 
+
+
 const SearchBar = () => {
+  const { dispatch } = useContext(SearchContext)
   // Ref
   const dateRef = useRef<any | null>();
   const optionRef = useRef<any | null>();
-// Routes
+  // Routes
 
-const navigate = useNavigate()
+  const navigate = useNavigate()
   // use States
   const [dateRange, setDateRange] = useState<any>([
     {
@@ -74,9 +78,10 @@ const navigate = useNavigate()
     });
   };
 
-const handleSearch = ()=>{
-  navigate("/hotels", {state:{destination, dateRange, options}})
-}
+  const handleSearch = () => {
+    navigate("/hotels", { state: { destination, dateRange, options } })
+    dispatch({ type: "NEW_SEARCH", payload: { destination, dateRange, options } })
+  }
 
   const headerSearchItem = "flex items-center gap-[10px]";
   return (
@@ -88,7 +93,7 @@ const handleSearch = ()=>{
           className="border-0 outline-0 text-black"
           placeholder="Where are you going"
           value={destination}
-          onChange={(e)=> setDestination(e.target.value)}
+          onChange={(e) => setDestination(e.target.value)}
         />
       </div>
       <div className={headerSearchItem} ref={dateRef}>
@@ -148,7 +153,7 @@ const handleSearch = ()=>{
         )}
       </div>
       <div className={headerSearchItem}>
-        <button className="py-[5px] px-[10px] rounded-sm bg-[--theme]" onClick={()=>handleSearch()}>Search</button>
+        <button className="py-[5px] px-[10px] rounded-sm bg-[--theme]" onClick={() => handleSearch()}>Search</button>
       </div>
     </div>
   );
