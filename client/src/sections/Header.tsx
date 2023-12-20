@@ -9,6 +9,7 @@ type HeaderProps = {
 const Header = ({ mode }: HeaderProps) => {
   // const test = faBed
 
+  
   return (
     <div className="header flex justify-center text-white bg-[--theme] relative">
       <div
