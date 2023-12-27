@@ -146,3 +146,18 @@ export const countByType = catchAsyncError(
     }
   }
 );
+
+// Get rooms in hotels
+
+export const getRoomsByHotels = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id
+    try {
+const rooms = await Hotel.find()
+
+      res.status(200).json();
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 404));
+    }
+  }
+);

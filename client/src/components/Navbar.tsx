@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "../TailwindComponents";
 import { useContext } from "react";
-import { AuthContext, User } from "../context/authContext";
+import { AuthContext } from "../context/authContext";
 
 const Navbar = () => {
 
