@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { H3, H4 } from "../TailwindComponents/Typorgraphy/Headings";
 import { GalleryModal, MailList, Navbar } from "../components";
+import BookingModal from "../components/GalleryModal";
 import Footer from "../sections/Footer";
 import Header from "../sections/Header";
 import {
@@ -10,15 +11,19 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useState } from "react";
 import useFetch from "../hooks/useFetch";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Loader from "../components/Loader";
 import { SearchContext } from "../context/searchContext";
+import { AuthContext } from "../context/authContext";
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
+  const [reserveModal, setReserveModal] = useState(false);
   const [sliderNumber, setSliderNumber] = useState(0);
   const { state: { dateRange } } = useContext(SearchContext)
+  const { state: { user } } = useContext(AuthContext)
   const params = useParams()
+  const navigate = useNavigate()
   const { data, loading } = useFetch(`/api/hotels/hotel/${params.id}`)
 
   const MILISECONDS_PERDAY = 1000 * 60 * 60 * 24
@@ -50,6 +55,15 @@ const Home = () => {
   //     src: "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGFwYXJ0bWVudHxlbnwwfHwwfHx8MA%3D%3D&w=400",
   //   },
   // ];
+
+  const handleBook = () => {
+    if (!user) {
+      navigate("/login")
+    }
+    else {
+      setReserveModal(true)
+    }
+  }
 
   return (
     <>
@@ -135,9 +149,9 @@ const Home = () => {
                       molestiae rerum reprehenderit
                     </span>
                     <span>
-                      <strong>{data?.cheapestPrice * days || data?.cheapestPrice} AED </strong>({days} Nights)
+                      <strong>{data?.cheapestPrice * days || data?.cheapestPrice} AED </strong>({days || 1} Nights)
                     </span>
-                    <button className="bg-[--theme] text-white px-5 py-1 rounded-sm">
+                    <button onClick={handleBook} className="bg-[--theme] text-white px-5 py-1 rounded-sm">
                       Reserve or Book Now
                     </button>
                   </div>
@@ -148,6 +162,12 @@ const Home = () => {
           </>
 
       }
+      <BookingModal show={reserveModal} closeModal={() => setReserveModal(false)}>
+        <div className="bg-white w-full max-w-[450px] mx-auto">
+          
+           <h2>jhksdfjhaks</h2>
+          </div>
+      </BookingModal>
       <Footer />
     </>
   );

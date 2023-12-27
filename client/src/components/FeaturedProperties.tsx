@@ -6,7 +6,6 @@ import Loader from "./Loader";
 
 const FeaturedProperties = () => {
   const { data, loading } = useFetch("/api/hotels?featured=true&limit=4");
-  console.log("Feature ", data);
   if(loading) return <Loader/>
   return (
     <div className="w-full">
