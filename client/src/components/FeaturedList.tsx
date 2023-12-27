@@ -14,7 +14,6 @@ const FeaturedList = (): JSX.Element => {
   const {
     data: FeatureData,
     loading,
-    error,
   } = useFetch(`/api/cities`);
 
   return (

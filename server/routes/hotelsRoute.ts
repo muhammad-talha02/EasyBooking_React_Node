@@ -19,5 +19,6 @@ hotelsRouter.get("/hotel/:id", getSingleHotel);
 hotelsRouter.get("/", getAllHotels);
 hotelsRouter.get("/countByCity", getAllHotelsByCity);
 hotelsRouter.get("/countByType", countByType);
+hotelsRouter.get("/room/:id", countByType);
 
 export default hotelsRouter;
