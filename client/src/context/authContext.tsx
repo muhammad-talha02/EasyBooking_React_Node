@@ -1,13 +1,13 @@
 import React, { Dispatch, createContext, useEffect, useReducer } from "react"
 
-type User = {
-    user: any,
+export type User = {
+    user: any | null,
     loading: boolean,
     error: any,
 }
 
-const defaultState = {
-    user: localStorage.getItem("user") || null,
+const defaultState:User = {
+    user: null,
     loading: false,
     error: null,
 }
@@ -43,13 +43,6 @@ const AuthReducer = (state: any, action: any) => {
                 error: action.payload,
 
             };
-        case "LOGIN_FAILED":
-            return {
-                user: null,
-                loading: false,
-                error: null,
-
-            };
 
         default:
             return state;
@@ -61,7 +54,6 @@ export const AuthContextProvider: React.FC<ChildrenProps> = ({ children }) => {
     const [state, dispatch] = useReducer(AuthReducer, defaultState)
 
     useEffect(() => {
-
         localStorage.setItem("user", JSON.stringify(state.user))
 
     }, [state.user])

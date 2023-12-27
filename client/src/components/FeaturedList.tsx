@@ -14,10 +14,8 @@ const FeaturedList = (): JSX.Element => {
   const {
     data: FeatureData,
     loading,
-    error,
   } = useFetch(`/api/cities`);
 
-  console.log(FeatureData);
   return (
     <div className="featured w-full max-w-[1024px] flex justify-between gap-[20px]">
       {loading
