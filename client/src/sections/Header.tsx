@@ -2,12 +2,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { HeaderIcons } from "../utils";
 import { Button } from "../TailwindComponents";
 import { SearchBar } from "../components";
+import { useContext } from "react";
+import { AuthContext } from "../context/authContext";
 
 type HeaderProps = {
   mode?: string;
 };
 const Header = ({ mode }: HeaderProps) => {
   // const test = faBed
+  const { state } = useContext(AuthContext)
 
   
   return (
@@ -41,9 +44,12 @@ const Header = ({ mode }: HeaderProps) => {
               sint, ea consequuntur officia, mollitia adipisci architecto
               voluptatum nemo. Facere, labore molestiae.
             </p>
+            {
+              !state?.user?.user && 
             <Button classes="p-[10px] bg-[#0071c2] text-[white] border-0 font-medium">
               Login / Register
             </Button>
+            }
             <SearchBar />
           </>
         )}
