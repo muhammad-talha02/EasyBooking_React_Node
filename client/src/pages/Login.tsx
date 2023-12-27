@@ -2,11 +2,13 @@ import { useContext, useRef } from "react"
 import { H3 } from "../TailwindComponents/Typorgraphy/Headings"
 import { AuthContext } from "../context/authContext"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 const Login = () => {
   const email = useRef<any>('')
   const password = useRef<any>('')
-  const { state :{user, loading, error}, dispatch } = useContext(AuthContext)
+  const navigate = useNavigate()
+  const { state: { user, loading, error }, dispatch } = useContext(AuthContext)
 
   const handleLogin = async () => {
 
@@ -19,13 +21,12 @@ const Login = () => {
     try {
       const res = await axios.post("/api/users/login", credientials)
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data })
-
+      navigate("/")
     } catch (error: any) {
       dispatch({ type: "LOGIN_FAILED", payload: error.response.data })
     }
   }
 
-  console.log({user})
   return (
     <div className='w-full h-[100vh] flex items-center justify-center gap-5 bg-[#093f77] flex-col'>
       <H3 classes="text-white">EasyBooking Login</H3>
@@ -38,7 +39,7 @@ const Login = () => {
           <label htmlFor="password">Password</label>
           <input ref={password} type="password" name='password' id='password' className="rounded-sm outline-none border-[#093f77] border-2 border-solid w-full text-xl  text-black h-[35px]" />
         </div>
-        <button className="bg-yellow-500 py-2 px-5 mx-auto rounded w-max" onClick={handleLogin}>{loading ? "Logining..." : "Login"} </button>
+        <button disabled={loading} className="bg-yellow-500 py-2 px-5 mx-auto rounded w-max" onClick={handleLogin}>{loading ? "Logining..." : "Login"} </button>
         <span>{error?.message}</span>
       </div>
     </div>
