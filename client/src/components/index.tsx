@@ -12,3 +12,4 @@ export { default as FooterListItems } from "./FooterListItems";
 export { default as SidebarSearch } from "./SidebarSearch";
 export { default as SearchCard } from "./SearchCard";
 export { default as GalleryModal } from "./GalleryModal";
+export { default as Reserve } from "./Reserve";

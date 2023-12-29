@@ -77,7 +77,7 @@ export const getRoom = catchAsyncError(
   }
 );
 
-//Get All Rooms Room
+//Get All Rooms
 export const getAllRooms = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     const hotelId = req.params.hotelId;
@@ -86,7 +86,7 @@ export const getAllRooms = catchAsyncError(
       if (rooms.length < 1) {
         return next(new ErrorHandler("No room found", 404));
       }
-      res.status(200).json(rooms);
+      res.status(200).json({ success: true, Total: rooms.length, rooms });
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 404));
     }

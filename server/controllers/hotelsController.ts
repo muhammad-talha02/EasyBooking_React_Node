@@ -3,6 +3,7 @@ import { catchAsyncError } from "../Middlewares/catchAyncError";
 import Hotel from "../models/hotel.model";
 import ErrorHandler from "../utils/ErrorHandler";
 import City from "../models/city.model";
+import Room from "../models/room.model";
 
 // Create
 export const createHotel = catchAsyncError(
@@ -151,11 +152,22 @@ export const countByType = catchAsyncError(
 
 export const getRoomsByHotels = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
-    const id = req.params.id
+    const id = req.params.hotelId;
     try {
-const rooms = await Hotel.find()
-
-      res.status(200).json();
+      const hotel = await Hotel.findById(id);
+      if (hotel) {
+        const rooms = await Promise.all(
+          hotel.room.map((item) => {
+            return Room.findById(item);
+          })
+        );
+        return res.status(200).json({
+          success: true,
+          Total: rooms.length,
+          rooms,
+        });
+      }
+      return next(new ErrorHandler("No hotel found", 400));
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 404));
     }
