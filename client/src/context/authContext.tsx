@@ -7,7 +7,7 @@ export type User = {
 }
 
 const defaultState:User = {
-    user: null,
+    user: {username:"talha"},
     loading: false,
     error: null,
 }

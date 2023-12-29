@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { H3, H4 } from "../TailwindComponents/Typorgraphy/Headings";
-import { GalleryModal, MailList, Navbar } from "../components";
+import { GalleryModal, MailList, Navbar, Reserve } from "../components";
 import BookingModal from "../components/GalleryModal";
 import Footer from "../sections/Footer";
 import Header from "../sections/Header";
@@ -29,7 +29,7 @@ const Home = () => {
   const MILISECONDS_PERDAY = 1000 * 60 * 60 * 24
 
   function totalDays(d1: any, d2: any) {
-    const timeDiff = Math.abs(d2.getTime() - d1.getTime())
+    const timeDiff = Math.abs(d2?.getTime() - d1?.getTime())
     const diffDays = Math.ceil(timeDiff / MILISECONDS_PERDAY)
     return diffDays
   }
@@ -58,7 +58,7 @@ const Home = () => {
 
   const handleBook = () => {
     if (!user) {
-      navigate("/login")
+      // navigate("/login")
     }
     else {
       setReserveModal(true)
@@ -141,7 +141,7 @@ const Home = () => {
                       {data?.description}
                     </span>
                   </div>
-                  <div className="flex flex-col flex-1 gap-[10px] bg-[#67a6ff30] p-2">
+                  <div className="flex w-full flex-col max-w-[350px] gap-[10px] bg-[#67a6ff30] p-2">
                     <H4>Perfect for {days || 1}-night stay</H4>
                     <span className="text-[14px]">
                       Lorem ipsum dolor sit, amet consectetur adipisicing elit. Omnis
@@ -165,7 +165,7 @@ const Home = () => {
       <BookingModal show={reserveModal} closeModal={() => setReserveModal(false)}>
         <div className="bg-white w-full max-w-[450px] mx-auto">
           
-           <h2>jhksdfjhaks</h2>
+          <Reserve/>
           </div>
       </BookingModal>
       <Footer />
