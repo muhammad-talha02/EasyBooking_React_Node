@@ -3,8 +3,8 @@ import { catchAsyncError } from "../Middlewares/catchAyncError";
 import User from "../models/user.model";
 import ErrorHandler from "../utils/ErrorHandler";
 import jwt from "jsonwebtoken";
-import { configDotenv } from "dotenv";
-configDotenv();
+// import { configDotenv } from "dotenv";
+// configDotenv();
 // Register
 export const registerUser = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
